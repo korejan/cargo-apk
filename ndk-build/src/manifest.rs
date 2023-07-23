@@ -17,6 +17,8 @@ pub struct AndroidManifest {
     pub version_code: Option<u32>,
     #[serde(rename(serialize = "android:versionName"))]
     pub version_name: Option<String>,
+    #[serde(rename(serialize = "android:installLocation"))]
+    pub install_location: Option<String>,
 
     #[serde(rename(serialize = "uses-sdk"))]
     #[serde(default)]
@@ -44,6 +46,7 @@ impl Default for AndroidManifest {
             shared_user_id: Default::default(),
             version_code: Default::default(),
             version_name: Default::default(),
+            install_location: Default::default(),
             sdk: Default::default(),
             uses_feature: Default::default(),
             uses_permission: Default::default(),
@@ -77,6 +80,8 @@ pub struct Application {
     #[serde(rename(serialize = "android:label"))]
     #[serde(default)]
     pub label: String,
+    #[serde(rename(serialize = "android:allowBackup"))]
+    pub allow_backup: Option<bool>,
     #[serde(rename(serialize = "android:extractNativeLibs"))]
     pub extract_native_libs: Option<bool>,
     #[serde(rename(serialize = "android:usesCleartextTraffic"))]
@@ -106,6 +111,8 @@ pub struct Activity {
     pub orientation: Option<String>,
     #[serde(rename(serialize = "android:exported"))]
     pub exported: Option<bool>,
+    #[serde(rename(serialize = "android:enableVrMode"))]
+    pub enable_vrmode: Option<String>,
     #[serde(rename(serialize = "android:resizeableActivity"))]
     pub resizeable_activity: Option<bool>,
     #[serde(rename(serialize = "android:alwaysRetainTaskState"))]
@@ -129,6 +136,7 @@ impl Default for Activity {
             name: default_activity_name(),
             orientation: None,
             exported: None,
+            enable_vrmode: None,
             resizeable_activity: None,
             always_retain_task_state: None,
             meta_data: Default::default(),
