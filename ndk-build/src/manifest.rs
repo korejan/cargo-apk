@@ -87,6 +87,10 @@ pub struct Application {
     #[serde(rename(serialize = "android:usesCleartextTraffic"))]
     pub uses_cleartext_traffic: Option<bool>,
 
+    #[serde(rename(serialize = "property"))]
+    #[serde(default)]
+    pub property: Vec<Property>,
+    
     #[serde(rename(serialize = "meta-data"))]
     #[serde(default)]
     pub meta_data: Vec<MetaData>,
@@ -253,6 +257,17 @@ pub struct Feature {
     #[serde(rename(serialize = "android:glEsVersion"))]
     #[serde(serialize_with = "serialize_opengles_version")]
     pub opengles_version: Option<(u8, u8)>,
+}
+
+/// Android [property-element](https://developer.android.com/guide/topics/manifest/property-element).
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct Property {
+    #[serde(rename(serialize = "android:name"))]
+    pub name: String,
+    #[serde(rename(serialize = "android:value"))]
+    pub value: Option<String>,
+    #[serde(rename(serialize = "android:resource"))]
+    pub resource: Option<String>,
 }
 
 fn serialize_opengles_version<S>(
