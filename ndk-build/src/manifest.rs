@@ -87,6 +87,10 @@ pub struct Application {
     #[serde(rename(serialize = "android:usesCleartextTraffic"))]
     pub uses_cleartext_traffic: Option<bool>,
 
+    #[serde(rename(serialize = "uses-native-library"))]
+    #[serde(default)]
+    pub uses_native_library: Vec<NativeLibrary>,
+
     #[serde(rename(serialize = "property"))]
     #[serde(default)]
     pub property: Vec<Property>,
@@ -257,6 +261,16 @@ pub struct Feature {
     #[serde(rename(serialize = "android:glEsVersion"))]
     #[serde(serialize_with = "serialize_opengles_version")]
     pub opengles_version: Option<(u8, u8)>,
+}
+
+// <uses-native-library android:name="string" android:required=["true" | "false"] />
+/// Android [uses-native-library] https://developer.android.com/guide/topics/manifest/uses-native-library-element
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct NativeLibrary {
+    #[serde(rename(serialize = "android:name"))]
+    pub name: Option<String>,
+    #[serde(rename(serialize = "android:required"))]
+    pub required: Option<bool>,
 }
 
 /// Android [property-element](https://developer.android.com/guide/topics/manifest/property-element).
